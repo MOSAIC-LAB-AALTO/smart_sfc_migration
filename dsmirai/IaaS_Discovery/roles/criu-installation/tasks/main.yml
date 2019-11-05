@@ -1,0 +1,33 @@
+- name: download criu
+  unarchive:
+    src: http://download.openvz.org/criu/criu-3.11.tar.bz2
+    dest: /root/
+    remote_src: yes
+
+
+- name: make criu
+  shell: make
+  args:
+    chdir: /root/criu-3.11/
+
+
+
+- name: make install criu
+  shell: make install
+  args:
+    chdir: /root/criu-3.11/
+
+- name: restart machine
+  shell: sleep 2 && shutdown -r now
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+- name: wait for machine to restart
+  local_action:
+    module: wait_for
+      host={{ inventory_hostname }}
+      port=22
+      delay=10
+      timeout=60
+      connect_timeout=15

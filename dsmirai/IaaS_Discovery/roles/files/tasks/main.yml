@@ -1,0 +1,176 @@
+- name: Creates directory
+  file:
+    path: /root/minion_smart_sfc
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+    recurse: yes
+
+- name: Creates Triggers directory
+  file:
+    path: /root/minion_smart_sfc/Triggers
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+    recurse: yes
+
+- name: minion_listner file
+  copy:
+    src: ../minions_files/minion_listner.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0775
+
+- name: server_broker file
+  copy:
+    src: ../minions_files/server_broker.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0775
+
+- name: linux_container file
+  copy:
+    src: ../minions_files/linux_container.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0775
+
+- name: core_migration file
+  copy:
+    src: ../minions_files/core_migration.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0775
+
+- name: scale_up file
+  copy:
+    src: ../minions_files/scale_up.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0775
+
+
+- name: virtual_machine file
+  copy:
+    src: ../minions_files/virtual_machine.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0775
+
+- name: customized_sdn_container file
+  copy:
+    src: ../minions_files/customized_sdn_container.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0775
+
+- name: resource_availability_trigger file
+  copy:
+    src: ../minions_files/resource_availability_trigger.py
+    dest: /root/minion_smart_sfc/Triggers
+    owner: root
+    group: root
+    mode: 0775
+
+
+- name: service_consumption_trigger file
+  copy:
+    src: ../minions_files/service_consumption_trigger.py
+    dest: /root/minion_smart_sfc/Triggers
+    owner: root
+    group: root
+    mode: 0775
+
+- name: environment_cleaner file
+  copy:
+    src: ../minions_files/environment_cleaner.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0775
+
+- name: cpu file
+  copy:
+    src: ../minions_files/cpu.py
+    dest: /var/lib/lxc/nginxBKserver/rootfs/root/cpu.py
+    owner: root
+    group: root
+    mode: 0775
+
+- name: umount file
+  copy:
+    src: ../minions_files/umount.sh
+    dest: /root/
+    owner: root
+    group: root
+    mode: 0777
+
+- name: utils file
+  copy:
+    src: ../minions_files/utils.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0777
+
+- name: iperf_client file
+  copy:
+    src: ../minions_files/iperf_client.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0777
+
+- name: iperf_server file
+  copy:
+    src: ../minions_files/iperf_server.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0777
+
+#- name: start-the-rat-queue
+#  command: python3 /root/minion_smart_sfc/server_broker.py "rat_queue"
+  # a solution for demo, need to be investigated as no official solution exist !!!
+#  async: 2592000
+#  poll: 0
+
+
+#- name: start-the-sct-queue
+#  command: python3 /root/minion_smart_sfc/server_broker.py "sct_queue"
+  # a solution for demo, need to be investigated as no official solution exist !!!
+#  async: 2592000
+#  poll: 0
+
+- name: start-the-creation-queue
+  command: python3 /root/minion_smart_sfc/server_broker.py "creation_queue"
+  # a solution for demo, need to be investigated as no official solution exist !!!
+  async: 2592000
+  poll: 0
+
+#- name: start-the-migration-queue
+#  command: python3 /root/minion_smart_sfc/server_broker.py "migration_queue"
+#  # a solution for demo, need to be investigated as no official solution exist !!!
+#  async: 2592000
+#  poll: 0
+
+- name: start-the-iaas_consumption_queue
+  command: python3 /root/minion_smart_sfc/server_broker.py "iaas_consumption_queue"
+  # a solution for demo, need to be investigated as no official solution exist !!!
+  async: 2592000
+  poll: 0
+
+#- name: start-the-control-over-minion
+#  command: python3 /root/minion_smart_sfc/minion_listner.py
+  # a solution for demo, need to be investigated as no official solution exist !!!
+#  async: 2592000
+#  poll: 0

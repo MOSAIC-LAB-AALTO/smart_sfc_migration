@@ -1,0 +1,14 @@
+- name: ovs-deployment-files
+  copy:
+    src: ../ovs_deployment/deploy_ovs.py
+    dest: /root/minion_smart_sfc/
+    owner: root
+    group: root
+    mode: 0775
+
+
+- name: start-the-ovs
+  command: python3 /root/minion_smart_sfc/deploy_ovs.py
+  # a solution for demo, need to be investigated as no official solution exist !!!
+  async: 2592000
+  poll: 0

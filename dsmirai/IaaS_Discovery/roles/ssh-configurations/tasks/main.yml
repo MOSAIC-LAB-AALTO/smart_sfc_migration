@@ -1,0 +1,21 @@
+- name: ssh copy private
+  copy:
+    src: ../ssh-keys/mirai
+    dest: /root/.ssh/
+    owner: root
+    group: root
+    mode: 0600
+
+
+- name: ssh copy public
+  copy:
+    src: ../ssh-keys/mirai.pub
+    dest: /root/.ssh/
+    owner: root
+    group: root
+    mode: 0644
+
+
+
+- name: adding to the authorized hosts
+  shell: cat /root/.ssh/mirai.pub >> /root/.ssh/authorized_keys

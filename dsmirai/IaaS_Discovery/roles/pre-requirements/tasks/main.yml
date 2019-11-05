@@ -1,0 +1,82 @@
+- name: Install apt Package
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - build-essential
+    - automake
+    - autoconf
+    - pkg-config
+    - docbook2x
+    - libapparmor-dev
+    - libselinux1-dev
+    - libcgmanager-dev
+    - libpython3-dev
+    - python3-dev
+    - libcap-dev
+    - python3-setuptools
+    - debootstrap
+    - libtool
+    - automake
+    - bridge-utils
+    - git
+    - libprotobuf-dev
+    - libprotobuf-c0-dev
+    - protobuf-c-compiler
+    - protobuf-compiler
+    - python-protobuf
+    - libnl-3-dev
+    - libpth-dev
+    - pkg-config
+    - libcap-dev
+    - asciidoc
+    - libnet-dev
+    - xmlto
+    - asciidoc
+    - lxc
+    - openvswitch-switch
+    - python3-pip
+    - iperf3
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+
+
+#- name: Upgrade pip
+#  pip:
+#    name=pip3 state=latest executable=pip3
+#  tags:
+#    - packages
+
+- name: upgrade pip3
+  command: pip3 install --upgrade pip
+
+- name: restart machine
+  shell: sleep 2 && shutdown -r now
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+- name: wait for machine to restart
+  local_action:
+    module: wait_for
+      host={{ inventory_hostname }}
+      port=22
+      delay=10
+      timeout=60
+      connect_timeout=15
+
+
+- name: pip3 requirements
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - netifaces
+    - paramiko
+    - pika
+    - requests
+    - iperf3
+    - psutil
+
+# Pika need to be version 0.12.0
+# pip3 install pika==0.12.0
