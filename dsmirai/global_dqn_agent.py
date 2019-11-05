@@ -160,8 +160,8 @@ class GlobalDQNAgent:
     def replay_double_dqn_batch(self, batch_size):
         pass
 
-    def load(self, name):
-        self.model.load_weights("model_{}.h5".format(name))
+    def load(self, path, name):
+        self.model.load_weights("{}model_{}.h5".format(path, name))
         self.model.compile(loss='mse', optimizer=Adam(lr=self.alpha))
         print("Outputting all the Loaded weights")
         print(self.model.get_weights())

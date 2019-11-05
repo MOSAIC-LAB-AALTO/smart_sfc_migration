@@ -4,6 +4,8 @@ import dsmirai.client_broker as client_broker
 import os
 import time
 import dsmirai.bandwidth_selector as bw_slct
+from dsmirai.persistent_model import helpers
+
 
 manager = Manager()
 
@@ -147,7 +149,7 @@ def basic_sfc_migration(container_name, LXC_IMAGE, image_type, ip_source, ip_des
     return_dict[container_name] = {"dump_size": dump_size, "dump_time": dump_time, "mem_pages": mem_pages,
                                    "total_time": total_time}
     # TODO: Store in a database table
-    # helpers.update_data_set_1(dump_size, mem_pages, disk_size, pre_dump_size, t_pre_dump)
+    helpers.update_data_set_1(dump_size, mem_pages, disk_size, pre_dump_size, t_pre_dump, bandwidth_value)
     return dump_size, dump_time, mem_pages, total_time
 
 
@@ -173,6 +175,7 @@ def dump_restore(container_name, LXC_IMAGE, image_type, ip_source, ip_destinatio
     downtime = action_time + return_dict[container_name]["dump_time"]
     total_time = return_dict[container_name]["total_time"] + downtime
     return_dict[container_name] = {"downtime": downtime, "total_time": total_time}
+    helpers.update_data_set_2(success, selected_bandwidth, action_time, total_time)
     return
 
 

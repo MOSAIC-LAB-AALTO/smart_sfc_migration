@@ -75,3 +75,27 @@ class Log(models.Model):
 
     def __str__(self):
         return "container: {} result: {} code: {}  usage: {} ".format(self.container, self.result, self.code, self.usage)
+
+
+class DataSet(models.Model):
+    # resources
+    cpu_container = models.TextField(max_length=120, default="1")
+    ram_container = models.TextField(max_length=120, default="512M")
+    disk_container = models.TextField(max_length=120, default="512M")
+    cpu_iaas = models.TextField(max_length=120, default="8")
+    ram_iaas = models.TextField(max_length=120, default="32")
+    disk_iaas = models.TextField(max_length=120, default="256G")
+    # time
+    migration_time = models.FloatField(null=True)
+    downtime = models.FloatField(null=True)
+    pre_dump_time = models.FloatField(null=True)
+    # size
+    dump_size = models.FloatField(null=True)
+    pre_dump_size = models.FloatField(null=True)
+    # network information
+    max_bandwidth = models.BigIntegerField(null=True)
+    bandwidth_action = models.BigIntegerField(null=True)
+    # other stuff
+    mem_pages = models.BigIntegerField(null=True)
+    application_type = models.TextField(max_length=120, default="video")
+    success = models.BooleanField(default=False)

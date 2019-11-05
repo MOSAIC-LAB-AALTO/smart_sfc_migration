@@ -7,6 +7,7 @@ from mirai.models import IaaSPerformance
 import datetime
 import random
 from netaddr import IPNetwork
+from mirai.models import DataSet
 
 
 # Set of function for dealing the Database
@@ -290,3 +291,31 @@ def db_cleaner_():
     print(Container.objects.all())
     print('Client: ')
     print(Client.objects.all())
+
+
+# Building the Data Set
+def insert_data_set(cpu_container, ram_container, cpu_iaas, ram_iaas, disk_iaas, application_type):
+    x = DataSet(cpu_container=cpu_container, ram_container=ram_container, cpu_iaas=cpu_iaas, ram_iaas=ram_iaas,
+                disk_iaas=disk_iaas, application_type=application_type)
+    x.save()
+    return x.pk
+
+
+def update_data_set_1(dump_size, mem_pages, disk_container, pre_dump_size, pre_dump_time, max_bandwidth):
+    process = DataSet.objects.filter().last()
+    process.dump_size = dump_size
+    process.mem_pages = mem_pages
+    process.disk_container = disk_container
+    process.pre_dump_size = pre_dump_size
+    process.pre_dump_time = pre_dump_time
+    process.max_bandwidth = max_bandwidth
+    process.save()
+
+
+def update_data_set_2(success, bandwidth_action, downtime, migration_time):
+    process = DataSet.objects.filter().last()
+    process.success = success
+    process.bandwidth_action = bandwidth_action
+    process.downtime = downtime
+    process.migration_time = migration_time
+    process.save()

@@ -103,6 +103,8 @@ def create(container_id):
 
         if result != 1:
             raise TypeError(f'create_container failed, result {result}')
+        else:
+            helpers.insert_data_set(cpu, ram, winner_minion[1], winner_minion[2], winner_minion[3], application_type)
 
         vsh.enable_remote_video_streaming(creation_ip_address, str(int(client_port_number) + 1024),
                                           client_ip_address)

@@ -53,7 +53,7 @@ def core_cleaner(decision):
         clean_container_bridge_ovs(container_to_delete[i], "br-{}3".format(system_driver.get_ip().split(".")[3]))
         clean_container_bridge_ovs(container_to_delete[i], "br-{}3".format(system_driver.get_ip().split(".")[3]), "2")
         lxc_driver.delete_container(container_to_delete[i])
-    if decision:
+    if decision is True or decision == "True":
         clean_ovs_bridges()
 
 

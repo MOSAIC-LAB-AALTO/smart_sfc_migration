@@ -50,7 +50,7 @@ class ServerBroker(object):
         x = body.decode().split("#")
         response = ""
         if x[0] == "admin":
-            subprocess.Popen(['python3', '/root/minion_sfc/server_broker.py', str(x[1]) + "_queue"], stdout=subprocess.PIPE,
+            subprocess.Popen(['python3', '/root/minion_smart_sfc/server_broker.py', str(x[1]) + "_queue"], stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
             response = 1
             print("The response equals to: {}".format(response))
@@ -163,7 +163,7 @@ class ServerBroker(object):
             response = str(container_ip) + "#" + str(cpu) + "#" + str(ram) + "#" + str(disk)
         elif x[0] == "environment_cleaner":
             print("***********The Host Node Server Broker -- environment_cleaner --***********")
-            subprocess.Popen(['python3', '/root/minion_sfc/environment_cleaner.py'], stdout=subprocess.PIPE,
+            subprocess.Popen(['python3', '/root/minion_smart_sfc/environment_cleaner.py', "True"], stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
             response = 1
         elif x[0] == "live_container_number":
