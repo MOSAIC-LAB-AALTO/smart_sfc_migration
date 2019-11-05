@@ -7,6 +7,8 @@ import dsmirai.onos_helpers as onos_helpers
 from django.conf import settings
 from mirai.models import IaaS, Container, Client
 import dsmirai.migration_schedular as mig_sch
+from dsmirai import network_evaluator
+
 
 
 """
@@ -213,13 +215,15 @@ def migrate(container_id, target_cloud=None):
             4/ In dump_restore() function we need to send the dump file then restore. 
         
         """
+        print("Getting bandwidth Information")
+        network_evaluator.run()
         bandwidth = 3000000
-        acquired_bandwidth = helpers.adjust_iaas_performance(ip_source, ip_destination, bandwidth)
-        if acquired_bandwidth == 0:
+        full_bandwidth = helpers.adjust_iaas_performance(ip_source, ip_destination, bandwidth)
+        if full_bandwidth == 0:
             raise TypeError('not enough BW')
         result = mig_sch.dummy_function(container_name, "io{}".format(container_id), LXC_IMAGE, LXC_OVS_IMAGE,
                                         image_template, image_template_ovs, ip_source, ip_destination, settings.NUM_ITERATION,
-                                        "dummy", acquired_bandwidth)
+                                        "wait", full_bandwidth)
 
         if target_cloud is None:
             target_cloud = IaaS.objects.get(iaas_ip=ip_destination).id

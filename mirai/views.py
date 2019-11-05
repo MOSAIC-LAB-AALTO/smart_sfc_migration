@@ -17,27 +17,6 @@ from mirai.serializers import (IaaSSerializer,
                                ContainerSerializer,
                                TriggersSerializer)
 
-class Iperf(APIView):
-    def get_object(self):
-        a = t.iperf_test.delay()
-        return 1
-
-    def get(self, request, format=None):
-        env_status = self.get_object()
-        serializer = EnvStatusSerializer(env_status)
-        return Response(serializer.data)
-
-class Onos(APIView):
-    def get_object(self):
-        a = t.clean_onos_env.delay()
-        return 1
-
-    def get(self, request, format=None):
-        env_status = self.get_object()
-        serializer = EnvStatusSerializer(env_status)
-        return Response(serializer.data)
-
-
 class DB(APIView):
     def get_object(self):
         a = t.db_cleaner.delay()

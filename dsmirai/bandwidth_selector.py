@@ -20,4 +20,4 @@ def get_smart_bw_value(state, rl_type='dqn'):
     print('The selected action is: {}'.format(action))
     print('##########################################')
     print('##########################################')
-    return action
+    return action * 100

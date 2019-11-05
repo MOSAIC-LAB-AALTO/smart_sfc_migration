@@ -15,10 +15,8 @@ urlpatterns = [
     path('', include(router.urls)),
     path('', include(iaas_router.urls)),
     path('env-status/', views.EnvStatus.as_view(), name="env_status"),
-    path('iperf/', views.Iperf.as_view(), name="iperf"),
     path('bandwidth/', views.Bandwidth.as_view(), name="bandwidth"),
     path('db/', views.DB.as_view(), name="db"),
-    path('onos/', views.Onos.as_view(), name="onos"),
     re_path(r'^migrate/(?P<container_id>[0-9]+)/(to/(?P<to_iaas_id>[0-9]+)/)?$', views.Migrate.as_view(), name="migrate"),
 
 ]

@@ -23,22 +23,11 @@ def sct_daemon(iaas_name=None):
     sct_control.sct_trigger(iaas_name)
     return
 
+
 @app.task
 def iaas_consumption():
     dashboard_helper.iaas_resource_consumption()
     return
-
-
-@app.task
-def clean_onos_env():
-    onos_cleaner.clean_onos()
-    return
-
-
-@app.task
-def iperf_test():
-    network_evaluator.run()
-    return 1
 
 
 @app.task
@@ -49,4 +38,5 @@ def bandwidth_live_test():
 @app.task
 def db_cleaner():
     helpers.db_cleaner_()
+    onos_cleaner.clean_onos()
     return 1

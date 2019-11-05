@@ -176,14 +176,6 @@ def dump_restore(container_name, LXC_IMAGE, image_type, ip_source, ip_destinatio
     return
 
 
-def network_sfc_migration():
-    pass
-
-
-def weighted_sfc_migration():
-    pass
-
-
 migration_actions = {"dummy": [dummy_sfc_migration], "wait": [basic_sfc_migration, dump_restore], "basic": [],
                      "network": ["disk", "pre_dump", "dump_restore"]}
 

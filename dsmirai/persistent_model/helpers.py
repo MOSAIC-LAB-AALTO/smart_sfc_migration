@@ -249,7 +249,7 @@ def adjust_iaas_performance(iaas_ip_1, iaas_ip_2, kilobytes_s):
     :param kilobytes_s:
     :return:
     """
-    process = IaaSPerformance.objects.get(iaas_source__iaas_ip=iaas_ip_1, iaas_destination__iaas_ip=iaas_ip_2)
+    process = IaaSPerformance.objects.filter(iaas_source__iaas_ip=iaas_ip_1, iaas_destination__iaas_ip=iaas_ip_2).last()
     if process.megabytes_s * 1000 > kilobytes_s:
         print('bits_s before: {}'.format(process.bits_s))
         process.bits_s = process.bits_s - kilobytes_s * 8000
