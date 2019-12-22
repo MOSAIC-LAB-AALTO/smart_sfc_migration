@@ -196,25 +196,6 @@ def migrate(container_id, target_cloud=None):
         image_template = "nginxBKserver"
         image_template_ovs = "lxc-ovs"
         # bandwidth with kilobytes/s
-        # TODO: The Integration Must happen here, I would suggest in migration scheduler file better (good).
-        """
-        Here we need to select a value for bandwidth based on a trained model. 
-        Scenario:
-        1/ The migration should start until the Dump for container1 and container2. 
-        2/ Then, we gather both page_numbers and the dump_size.
-        3/ We use page_numbers and the dump_size to get two bandwidth values.
-        4/ We execute the dump_restore() function to restore.
-        
-        Code Modifications:
-        1/ Heavy changes in mig_sch (i.e. migration scheduler file).
-            1/ Changes are in basic_sfc_migration() function, for now the function is doing well until sending the dump 
-            files over the network.
-            2/ We need to make it stops when doing the pre-dumps, we need to make it stops until doing dumps then 
-            collect the dump size and also the memory pages as entries for the model.
-            3/ call the model an chose two bandwidth values.
-            4/ In dump_restore() function we need to send the dump file then restore. 
-        
-        """
         print("Getting bandwidth Information")
         network_evaluator.run()
         bandwidth = 3000000

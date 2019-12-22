@@ -66,7 +66,7 @@ class GlobalDQNAgent:
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
 
-    def act(self, state):
+    def get_action(self, state):
         if np.random.rand() <= self.epsilon:
             return random.randrange(1, self.action_size)
         act_values = self.model.predict(state)

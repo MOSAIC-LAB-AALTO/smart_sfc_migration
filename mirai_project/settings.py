@@ -158,7 +158,7 @@ REST_FRAMEWORK = {
 
 IP_SDN_CONTROLLER = "195.148.125.90"
 LINK_ANSIBLE_FOLDER = os.path.join(BASE_DIR, 'dsmirai/IaaS_Discovery/')
-LINK_KERAS_MODEL = os.path.join(BASE_DIR, 'dsmirai/')
+LINK_MODEL = os.path.join(BASE_DIR, 'dsmirai/')
 NUM_ITERATION = 3
 ORCHESTRATOR_IP = "195.148.125.105"
 

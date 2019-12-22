@@ -157,11 +157,11 @@
   async: 2592000
   poll: 0
 
-#- name: start-the-migration-queue
-#  command: python3 /root/minion_smart_sfc/server_broker.py "migration_queue"
+- name: start-the-migration-queue
+  command: python3 /root/minion_smart_sfc/server_broker.py "migration_queue"
 #  # a solution for demo, need to be investigated as no official solution exist !!!
-#  async: 2592000
-#  poll: 0
+  async: 2592000
+  poll: 0
 
 - name: start-the-iaas_consumption_queue
   command: python3 /root/minion_smart_sfc/server_broker.py "iaas_consumption_queue"

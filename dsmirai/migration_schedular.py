@@ -35,12 +35,8 @@ def dummy_function(container_name, lxc_ovs, LXC_IMAGE, LXC_OVS_IMAGE, image_type
             j += 1
         if j >= len(return_dict.values()):
             resp = 1
-            print("good hahahahaha")
-            print(resp)
             continue
-        print("bad hahahahaha")
         resp = 404
-        print(resp)
         return resp
 
     print("the last return: {}".format(resp))
@@ -72,12 +68,8 @@ def round_robin_function(container_name, lxc_ovs, LXC_IMAGE, LXC_OVS_IMAGE, imag
             j += 1
         if j >= len(return_dict.values()):
             resp = 1
-            print("good hahahahaha")
-            print(resp)
             continue
-        print("bad hahahahaha")
         resp = 404
-        print(resp)
         return resp
 
     print("the last return: {}".format(resp))
@@ -161,10 +153,11 @@ def dump_restore(container_name, LXC_IMAGE, image_type, ip_source, ip_destinatio
     t1 = time.time()
     # TODO: Call bw_slct.get_smart_bw_value()
 
-    selected_bandwidth = bw_slct.get_smart_bw_value((return_dict[container_name]["dump_size"], return_dict[container_name]["mem_pages"]))
+    selected_bandwidth = bw_slct.get_smart_bw_value((float(return_dict[container_name]["dump_size"]),
+                                                     float(return_dict[container_name]["mem_pages"])), 'ddpg')
+    # TODO: selected_bandwidth to be modified into selected_bandwidth[0] for DDPG
     action_time, success = rmq.migration(container_name, ip_destination, NUM_ITERATION, ip_source, "dump_restore",
-                                         False, selected_bandwidth)
-    # TODO: Store in a database table
+                                         False, selected_bandwidth[0].item())
     if success != 1:
         return_dict[container_name] = "Error"
         return
@@ -175,7 +168,8 @@ def dump_restore(container_name, LXC_IMAGE, image_type, ip_source, ip_destinatio
     downtime = action_time + return_dict[container_name]["dump_time"]
     total_time = return_dict[container_name]["total_time"] + downtime
     return_dict[container_name] = {"downtime": downtime, "total_time": total_time}
-    helpers.update_data_set_2(success, selected_bandwidth, action_time, total_time)
+    # TODO: selected_bandwidth to be modified into selected_bandwidth[0] for DDPG
+    helpers.update_data_set_2(success, selected_bandwidth[0].item(), action_time, total_time)
     return
 
 

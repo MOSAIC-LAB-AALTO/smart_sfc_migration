@@ -9,7 +9,8 @@ def container_list():
     nb_container = lxc_driver.list_containers()
     deleted_container = []
     for i in range(len(nb_container)):
-        if nb_container[i] != 'nginxBKserver' and nb_container[i] != 'nginxBKclient' and nb_container[i] != 'lxc-ovs':
+        if nb_container[i] != 'nginxBKserver' and nb_container[i] != 'nginxBKclient' and nb_container[i] != 'lxc-ovs' \
+                and nb_container[i] != 'empty':
             deleted_container.append(nb_container[i])
     return deleted_container
 
